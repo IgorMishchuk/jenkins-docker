@@ -42,7 +42,7 @@ To bring up the application, run `docker-compose up -d` from repo root folder.
 
 Once containers are up you should be able to browse to:
 * [http://localhost:80/](http://localhost:80/) for Nginx. Port mapping is defined [here](../master/docker-compose.yml#L14-L15);
-* [http://localhost:8080/](http://localhost:8080/) for Jenkins. Login details are [here](../master/README.md#L17)
+* [http://localhost:8080/](http://localhost:8080/) for Jenkins. Login details are in Jenkins [section](../master/README.md#jenkins).
 
 ### Pipeline job
 
