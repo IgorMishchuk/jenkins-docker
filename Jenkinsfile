@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment{
-        COMPOSE_FILE = '/var/devops/docker-compose.yml'
+        COMPOSE_FILE = '/var/weissbeerger-docker/docker-compose.yml'
         BUILD_TAG_NGINX = "${BUILD_NUMBER}"
     }
     stages{
