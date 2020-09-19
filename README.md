@@ -26,7 +26,7 @@ Jenkins image is [built](../master/jenkins/Dockerfile) on `adoptopenjdk/openjdk8
 * [Define](../master/jenkins/Dockerfile#L65) newer version (2.235.4 → 2.235.5) and [update](../master/jenkins/Dockerfile#L68) checksum to verify the downloaded `.war` file;
 * [Run](../master/jenkins/Dockerfile#L105) installation of predefined plugins.
 
-Jenkins should be available [http://localhost:8080/](http://localhost:8080/)
+Jenkins should be available [http://localhost:8080/](http://localhost:8080/).
 
 ### Build
 
