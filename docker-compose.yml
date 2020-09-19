@@ -1,0 +1,68 @@
+version: "3.8"
+services:
+
+        nginx:
+                build: ./nginx
+                image: "nginx:${BUILD_TAG_NGINX:-1.0}"
+                container_name: nginx
+                healthcheck:
+                        test: ["CMD", "curl", "-f", "http://localhost:90"]
+                        interval: 30s
+                        timeout: 10s
+                        start_period: 30s
+                        retries: 3
+                ports:
+                        - "80:90"
+                networks:
+                        - jenkins
+                restart: always
+
+        jenkins:
+                build: ./jenkins
+                image: "jenkins:${BUILD_TAG_JENKINS:-1.0}"
+                container_name: jenkins
+                environment:
+                        JAVA_OPTS: "-Djava.awt.headless=true"
+                        JAVA_OPTS: "-Djenkins.install.runSetupWizard=false"
+                healthcheck:
+                        test: ["CMD", "curl", "-f", "http:/localhost:8080/login"]
+                        interval: 30s
+                        timeout: 10s
+                        start_period: 60s
+                        retries: 3
+                ports:
+                        - "8080:8080"
+                networks:
+                        - jenkins
+                volumes:
+                        - type: bind
+                          source: ./jenkins/jenkins-data
+                          target: /var/jenkins_home/jobs
+                          volume:
+                                  nocopy: true
+                        - type: bind
+                          source: /var/run/docker.sock
+                          target: /var/run/docker.sock
+                          volume:
+                                  nocopy: true
+                        - type: bind
+                          source: /usr/bin/docker
+                          target: /usr/bin/docker
+                          volume:
+                                  nocopy: true
+                        - type: bind
+                          source: /usr/local/bin/docker-compose
+                          target: /usr/local/bin/docker-compose
+                          volume:
+                                  nocopy: true
+                        - type: bind
+                          source: ./
+                          target: /var/devops
+                          volume:
+                                  nocopy: true
+                restart: on-failure
+
+#volumes:
+#       jenkins-data:
+networks:
+        jenkins:

@@ -1,0 +1,17 @@
+cloudbees-folder:latest
+antisamy-markup-formatter:latest
+build-timeout:latest
+credentials-binding:latest
+timestamper:latest
+ws-cleanup:latest
+workflow-aggregator:latest
+github-organization-folder:latest
+pipeline-stage-view:latest
+git:latest
+github:latest
+matrix-project:latest
+ssh-slaves:latest
+matrix-auth:latest
+pam-auth:latest
+ldap:latest
+ssh:latest
