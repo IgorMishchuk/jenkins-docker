@@ -35,31 +35,11 @@ services:
                 networks:
                         - jenkins
                 volumes:
-                        - type: bind
-                          source: ./jenkins/jenkins-data
-                          target: /var/jenkins_home/jobs
-                          volume:
-                                  nocopy: true
-                        - type: bind
-                          source: /var/run/docker.sock
-                          target: /var/run/docker.sock
-                          volume:
-                                  nocopy: true
-                        - type: bind
-                          source: /usr/bin/docker
-                          target: /usr/bin/docker
-                          volume:
-                                  nocopy: true
-                        - type: bind
-                          source: /usr/local/bin/docker-compose
-                          target: /usr/local/bin/docker-compose
-                          volume:
-                                  nocopy: true
-                        - type: bind
-                          source: ./
-                          target: /var/devops
-                          volume:
-                                  nocopy: true
+                        - "./jenkins/jenkins-data:/var/jenkins_home/jobs"
+                        - "/var/run/docker.sock:/var/run/docker.sock"
+                        - "/usr/bin/docker:/usr/bin/docker"
+                        - "/usr/local/bin/docker-compose:/usr/local/bin/docker-compose"
+                        - "./:/var/devops"
                 restart: on-failure
 
 #volumes:
