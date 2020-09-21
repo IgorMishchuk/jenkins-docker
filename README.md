@@ -20,7 +20,7 @@ Jenkins image is [built](../master/jenkins/Dockerfile) on `adoptopenjdk/openjdk8
         * Users cannot signup. New users should be defined through Dockerfile;
         * Permission for anonymous is read-only;
     * [Enable](../master/jenkins/Dockerfile#L56) Agent → Master Access Control policy. Policy details are in this [document](https://wiki.jenkins.io/display/JENKINS/Slave+To+Master+Access+Control);
-    * [Copy](../master/jenkins/Dockerfile#L57) pre-configured pipeline job to rebuild Nginx image;
+    * [Copy](../master/jenkins/Dockerfile#L57) pre-configured pipeline jobs;
     * [Define](../master/jenkins/Dockerfile#L58) which plugins should be pre-installed. Plugin list is [here](../master/jenkins/config/plugins/plugins.txt);
 * [Define](../master/jenkins/Dockerfile#L25) and [create](../master/jenkins/Dockerfile#L61) a folder where build config for NGINX image will be stored;
 * [Define](../master/jenkins/Dockerfile#L65) newer version (2.235.4 → 2.235.5) and [update](../master/jenkins/Dockerfile#L68) checksum to verify the downloaded `.war` file;
@@ -44,6 +44,21 @@ Once containers are up you should be able to browse to:
 * [http://localhost:80/](http://localhost:80/) for Nginx. Port mapping is defined [here](../master/docker-compose.yml#L14-L15);
 * [http://localhost:8080/](http://localhost:8080/) for Jenkins. Login details are in Jenkins [section](../master/README.md#jenkins).
 
-### Pipeline job
+### Pipeline jobs
 
-After changes to Nginx files have been done, run job `weissbeerger` in Jenkins. It will automatically tag image version with [build number](../master/Jenkinsfile#L5), rebuild the image and start new container in scope of existing docker application.
+So far two jobs have been pre-configured:
+
+1. Job [weissbeerger-docker](../master/Jenkinsfile), which will rebuild and relaunch `nginx` container;
+2. Job [weissbeerger-s3](https://github.com/IgorMishchuk/weissbeerger-s3/blob/master/Jenkinsfile), which will upload updated version of `index.html` to S3 static website bucket.
+
+### Pipeline details
+
+For sake of example, both jobs take changed `index.html` file located on Docker host `repo/weissbeerger-docker/nginx/web/index.html`.
+
+#### Weissbeerger-docker
+
+After changes to `index.html` file have been done, run job `weissbeerger-docker` in Jenkins. It will automatically tag image version with [build number](../master/Jenkinsfile#L5), rebuild the image and start new container in scope of existing docker application.
+
+#### Weissbeeger-s3
+
+After changes to `index.html` file have been done, run job `weissbeerger-s3` in Jenkins. It will upload changed file to S3 bucket thus updating static [website](http://weissbeerger-s3.s3-website.eu-west-3.amazonaws.com/).

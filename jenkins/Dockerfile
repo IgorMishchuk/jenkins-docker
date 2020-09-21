@@ -54,7 +54,7 @@ RUN mkdir -p ${REF}/init.groovy.d
 COPY config/users/ "$REF"/users/
 COPY config/jenkins_home_conf.xml "$REF"/config.xml
 COPY config/policy/slave-to-master-security-kill-switch "$REF"/secrets/slave-to-master-security-kill-switch
-COPY config/weissbeerger/config.xml "$REF"/jobs/weissbeerger/config.xml
+COPY config/jobs/ "$REF"/jobs/
 COPY config/plugins/plugins.txt "$REF"/plugins.txt
 
 # Create a folder where build config for NGINX image is stored
