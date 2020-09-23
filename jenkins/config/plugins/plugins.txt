@@ -16,3 +16,4 @@ pam-auth:latest
 ldap:latest
 ssh:latest
 pipeline-aws:latest
+terraform:latest

@@ -40,6 +40,7 @@ services:
                         - "/usr/bin/docker:/usr/bin/docker"
                         - "/usr/local/bin/docker-compose:/usr/local/bin/docker-compose"
                         - "./:/var/weissbeerger-docker"
+                        - "/usr/bin/terraform:/usr/bin/terraform"
                 restart: on-failure
 
 #volumes:
