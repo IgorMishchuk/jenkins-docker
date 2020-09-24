@@ -40,25 +40,35 @@ Once build is complete two images will be created:
 
 To bring up the application, run `docker-compose up -d` from repo root folder.
 
-Once containers are up you should be able to browse to:
+Once containers are up, you should be able to browse to:
 * [http://localhost:80/](http://localhost:80/) for Nginx. Port mapping is defined [here](../master/docker-compose.yml#L14-L15);
 * [http://localhost:8080/](http://localhost:8080/) for Jenkins. Login details are in Jenkins [section](../master/README.md#jenkins).
 
 ### Pipeline jobs
 
-So far two jobs have been pre-configured:
+Listed jobs have been pre-configured:
 
 1. Job [weissbeerger-docker](../master/Jenkinsfile), which will rebuild and relaunch `nginx` container;
-2. Job [weissbeerger-s3](https://github.com/IgorMishchuk/weissbeerger-s3/blob/master/Jenkinsfile), which will upload updated version of `index.html` to S3 static website bucket.
+2. Jobs `weissbeerger-tf-${env}`, which will use Terraform to create the S3 bucket with website hosting and upload the initial version of `index.html` in specific `env`:
+    * [stage](https://github.com/IgorMishchuk/weissbeerger-s3/blob/stage/weissbeerger-s3/Jenkinsfile);
+    * [dev](https://github.com/IgorMishchuk/weissbeerger-s3/blob/dev/weissbeerger-s3/Jenkinsfile);
+    * [prod](https://github.com/IgorMishchuk/weissbeerger-s3/blob/master/weissbeerger-s3/Jenkinsfile);
+3. Jobs `weissbeerger-s3-${env}`, which will upload updated version of `index.html` to S3 static website bucket in specific `env`:
+    * [stage](https://github.com/IgorMishchuk/weissbeerger-s3/blob/stage/Jenkinsfile);
+    * [dev](https://github.com/IgorMishchuk/weissbeerger-s3/blob/dev/Jenkinsfile);
+    * [prod](https://github.com/IgorMishchuk/weissbeerger-s3/blob/master/Jenkinsfile).
 
 ### Pipeline details
 
-For sake of example, both jobs take changed `index.html` file located on Docker host `repo/weissbeerger-docker/nginx/web/index.html`.
+For sake of example, jobs `docker` and `s3` take changed `index.html` file located on Docker host `repo/weissbeerger-docker/nginx/web/index.html`.
 
 #### Weissbeerger-docker
 
 After changes to `index.html` file have been done, run job `weissbeerger-docker` in Jenkins. It will automatically tag image version with [build number](../master/Jenkinsfile#L5), rebuild the image and start new container in scope of existing docker application.
 
-#### Weissbeeger-s3
+#### Weissbeeger-s3-${env}
 
-After changes to `index.html` file have been done, run job `weissbeerger-s3` in Jenkins. It will upload changed file to S3 bucket thus updating static [website](http://weissbeerger-s3.s3-website.eu-west-3.amazonaws.com/).
+After changes to `index.html` file have been done, run job `weissbeerger-s3-${env}` in Jenkins. It will upload changed file to S3 bucket thus updating static websites:
+* [stage](http://weissbeerger-s3-stage.s3-website.eu-west-3.amazonaws.com/);
+* [dev](http://weissbeerger-s3-dev.s3-website.eu-west-3.amazonaws.com/);
+* [prod](http://weissbeerger-s3-prod.s3-website.eu-west-3.amazonaws.com/).
