@@ -1,0 +1,10 @@
+jobs:
+- script: |
+    multibranchPipelineJob('S3 static website') {
+        branchSources {
+            git {
+                id = 'configuration-as-code'
+                remote('https://github.com/IgorMishchuk/weissbeerger-s3.git')
+            }
+        }
+    }

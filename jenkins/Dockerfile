@@ -22,6 +22,7 @@ ARG gid=1000
 ARG http_port=8080
 ARG agent_port=50000
 ARG JENKINS_HOME=/var/jenkins_home
+ARG CASC_JENKINS_CONFIG=/var/jenkins_home/casc
 ARG NGINX=/var/nginx
 ARG REF=/usr/share/jenkins/ref
 ARG docker_guid=993
@@ -30,6 +31,7 @@ ARG docker_grp=docker
 ENV JENKINS_HOME $JENKINS_HOME
 ENV JENKINS_SLAVE_AGENT_PORT ${agent_port}
 ENV REF $REF
+ENV CASC_JENKINS_CONFIG $CASC_JENKINS_CONFIG
 
 # Jenkins is run with user `jenkins`, uid = 1000
 # If you bind mount a volume from the host or a data container,
@@ -51,11 +53,12 @@ VOLUME $JENKINS_HOME
 RUN mkdir -p ${REF}/init.groovy.d
 
 # Preconfigure Jenkins
-COPY config/users/ "$REF"/users/
-COPY config/jenkins_home_conf.xml "$REF"/config.xml
-COPY config/policy/slave-to-master-security-kill-switch "$REF"/secrets/slave-to-master-security-kill-switch
-COPY config/jobs/ "$REF"/jobs/
+# COPY config/users/ "$REF"/users/
+# COPY config/jenkins_home_conf.xml "$REF"/config.xml
+# COPY config/policy/slave-to-master-security-kill-switch "$REF"/secrets/slave-to-master-security-kill-switch
+# COPY config/jobs/ "$REF"/jobs/
 COPY config/plugins/plugins.txt "$REF"/plugins.txt
+COPY config/casc/ "$REF"/casc/
 
 # Create a folder where build config for NGINX image is stored
 RUN mkdir -p ${NGINX}

@@ -5,7 +5,6 @@ credentials-binding
 timestamper
 ws-cleanup
 workflow-aggregator
-github-organization-folder
 pipeline-stage-view
 git
 github
@@ -18,3 +17,4 @@ ssh
 pipeline-aws
 terraform
 configuration-as-code
+job-dsl
