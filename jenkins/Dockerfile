@@ -53,10 +53,6 @@ VOLUME $JENKINS_HOME
 RUN mkdir -p ${REF}/init.groovy.d
 
 # Preconfigure Jenkins
-# COPY config/users/ "$REF"/users/
-# COPY config/jenkins_home_conf.xml "$REF"/config.xml
-# COPY config/policy/slave-to-master-security-kill-switch "$REF"/secrets/slave-to-master-security-kill-switch
-# COPY config/jobs/ "$REF"/jobs/
 COPY config/plugins/plugins.txt "$REF"/plugins.txt
 COPY config/casc/ "$REF"/casc/
 

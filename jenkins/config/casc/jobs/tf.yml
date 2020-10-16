@@ -1,13 +1,14 @@
 jobs:
 - script: |
-    multibranchPipelineJob('S3_static_website') {
+    multibranchPipelineJob('TF_static_website') {
         branchSources {
             git {
-                id = 'configuration-as-code-s3'
+                id = 'configuration-as-code-tf'
                 remote('https://github.com/IgorMishchuk/weissbeerger-s3.git')
             }
         }
         configure {
             disabled('true')
+            scriptPath('weissbeerger-s3/Jenkinsfile')
         }
     }
