@@ -11,7 +11,7 @@ jenkins:
   disableRememberMe: false
   labelAtoms:
   - name: "master"
-  markupFormatter: "plainHtml"
+  markupFormatter: "plainText"
   mode: NORMAL
   myViewsTabBar: "standard"
   numExecutors: 2
