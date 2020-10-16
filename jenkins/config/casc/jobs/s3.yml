@@ -7,7 +7,7 @@ jobs:
                 remote('https://github.com/IgorMishchuk/weissbeerger-s3.git')
             }
         }
-        configure {
-            disabled('true')
+        configure { 
+            it / disabled('true')
         }
     }
