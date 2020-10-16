@@ -62,10 +62,10 @@ RUN mkdir -p ${NGINX}
 
 # jenkins version being bundled in this docker image
 ARG JENKINS_VERSION
-ENV JENKINS_VERSION ${JENKINS_VERSION:-2.235.5}
+ENV JENKINS_VERSION ${JENKINS_VERSION:-2.249.2}
 
 # jenkins.war checksum, download will be validated using it
-ARG JENKINS_SHA=C786F7B18FD3FC1BAFCE85B3B9BC5D8C5F09E3A313CFD618BAE8C1D920B6F70B
+ARG JENKINS_SHA=1bb06cc42cef730e6326faba146f6c40e77df381ec4b281287f6993423f9a522
 
 # Can be used to customize where jenkins.war get downloaded from
 ARG JENKINS_URL=https://repo.jenkins-ci.org/public/org/jenkins-ci/main/jenkins-war/${JENKINS_VERSION}/jenkins-war-${JENKINS_VERSION}.war
