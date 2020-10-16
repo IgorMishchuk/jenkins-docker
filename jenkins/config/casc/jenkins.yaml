@@ -51,7 +51,6 @@ security:
     creationOfLegacyTokenEnabled: false
     tokenGenerationOnCreationEnabled: false
     usageStatisticsEnabled: true
-    masterKillSwitchConfiguration: false
   sSHD:
     port: -1
 unclassified:
