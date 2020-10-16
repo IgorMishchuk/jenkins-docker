@@ -1,14 +1,16 @@
-multibranchPipelineJob('TF_static_website') {
-    branchSources {
-        git {
-            id = 'configuration-as-code-tf'
-            remote('https://github.com/IgorMishchuk/weissbeerger-s3.git')
+jobs:
+- script: |
+    multibranchPipelineJob('TF_static_website') {
+        branchSources {
+            git {
+                id = 'configuration-as-code-tf'
+                remote('https://github.com/IgorMishchuk/weissbeerger-s3.git')
+            }
+        }
+        configure { 
+            it / disabled('true') 
+            it << factory(class:'org.jenkinsci.plugins.workflow.multibranch.WorkflowBranchProjectFactory') {
+            scriptPath('weissbeerger-s3/Jenkinsfile')
+            }
         }
     }
-    configure { 
-        it / disabled('true') 
-        it << factory(class:'org.jenkinsci.plugins.workflow.multibranch.WorkflowBranchProjectFactory') {
-        scriptPath('weissbeerger-s3/Jenkinsfile')
-        }
-    }
-}
