@@ -4,7 +4,7 @@ jobs:
         branchSources {
             git {
                 id = 'configuration-as-code-s3'
-                remote('https://github.com/IgorMishchuk/weissbeerger-s3.git')
+                remote('https://github.com/IgorMishchuk/site-s3.git')
             }
         }
         configure { 

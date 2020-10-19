@@ -4,13 +4,13 @@ jobs:
         branchSources {
             git {
                 id = 'configuration-as-code-tf'
-                remote('https://github.com/IgorMishchuk/weissbeerger-s3.git')
+                remote('https://github.com/IgorMishchuk/site-s3.git')
             }
         }
         configure { 
             it / disabled('true') 
             it << factory(class:'org.jenkinsci.plugins.workflow.multibranch.WorkflowBranchProjectFactory') {
-            scriptPath('weissbeerger-s3/Jenkinsfile')
+            scriptPath('site-s3/Jenkinsfile')
             }
         }
     }
